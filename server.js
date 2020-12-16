@@ -10,6 +10,10 @@ const exhbs = require('express-handlebars');
 
 const bodyparser = require('body-parser');
 
+const Handlebars = require('handlebars');
+
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+
 var app = express();
 
 app.use(bodyparser.urlencoded({
@@ -22,7 +26,7 @@ app.use(bodyparser.json());
 app.set('views', path.join(__dirname, '/views/')); //_dirname is base file directory for this project.
 
 // configuring express engine to handlebars.
-app.engine('hbs', exhbs({extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/'}));
+app.engine('hbs', exhbs({extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/',handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 
 //set and started our view engine here.
 app.set('view engine', 'hbs');
